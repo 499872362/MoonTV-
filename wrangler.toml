@@ -1,4 +1,4 @@
-name = "taiheyinghsi"
+name = "taipingxianghe"
 compatibility_date = "2024-09-23"
 # force rebuild 2026-09-24
 compatibility_flags = ["nodejs_compat"]
