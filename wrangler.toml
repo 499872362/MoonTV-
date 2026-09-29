@@ -25,4 +25,7 @@ BUILD_TARGET = "cloudflare"
 # retry[[kv_namespaces]]
 binding = "NEXT_CACHE"
 id = "50803a18c7a741c9adca885ca3e1afa28"
+compatibility_flags = ["nodejs_compat"]
+compatibility_date = "2025-05-15"
+
 
