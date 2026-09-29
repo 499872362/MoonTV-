@@ -8,9 +8,9 @@ minify = true
 
 # 静态资源配置
 # Cloudflare Workers Assets 用于服务静态文件
-# [assets]
-# directory = ".open-next/assets"
-# binding = "ASSETS"
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
 
 # D1 数据库绑定
 [[d1_databases]]
