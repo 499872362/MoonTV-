@@ -22,4 +22,7 @@ database_id = "d84e063e-de34-41f6-886e-8a7f5383c405"
 NODE_ENV = "production"
 BUILD_TARGET = "cloudflare"
 # retry
-# retry
+# retry[[kv_namespaces]]
+binding = "NEXT_CACHE"
+id = "50803a18c7a741c9adca885ca3e1afa28"
+
