@@ -77,10 +77,10 @@ export async function middleware(request: NextRequest) {
   }
 
   const ACCESS_TOKEN_AGE = TOKEN_CONFIG.ACCESS_TOKEN_AGE;
-  const 当前 = Date.当前();
-  const age = 当前 - authInfo.timestamp;
+  const now = Date.now();
+  const age = now - authInfo.timestamp;
 
-  if (当前 >= authInfo.refreshExpires) {
+  if (now >= authInfo.refreshExpires) {
     console.log(`Refresh token expired for ${authInfo.username}, redirecting to login`);
     return handleAuthFailure(request, pathname);
   }
