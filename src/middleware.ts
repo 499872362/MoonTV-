@@ -29,11 +29,9 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const storageType = process.env.NEXT_PUBLIC_STORAGE_TYPE || 'localstorage';
-  // 读取Cookie登录信息
   const authInfo = getAuthInfoFromCookie(request);
 
-  // ====================== 【访客核心逻辑新增】======================
+  // ====================== 【访客核心逻辑，提前优先判断】======================
   // ✅ 开启访客模式，并且用户没有登录
   if (enableGuest && !authInfo) {
     // 判断当前访问的API是否在访客黑名单（写接口）
@@ -41,12 +39,12 @@ export async function middleware(request: NextRequest) {
     if(isBlockApi){
       return NextResponse.json({message:"访客模式：禁止修改配置/收藏/下载/保存记录"}, {status:401})
     }
-    // 读接口、播放页面直接放行访客
+    // 读接口、播放页面直接放行访客，直接return，不再执行下面鉴权
     return NextResponse.next();
   }
   // ================================================================
 
-  // ========== 下面全部是原版鉴权逻辑，保持原样不变 ==========
+  // ========== 原版鉴权逻辑（只有登录用户才会走到这里） ==========
   if (!process.env.PASSWORD) {
     // 如果未配置密码，重定向到警告页面
     const warningUrl = new URL('/warning', request.url);
@@ -58,6 +56,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // localstorage模式：在middleware中完成验证
+  const storageType = process.env.NEXT_PUBLIC_STORAGE_TYPE || 'localstorage';
   if (storageType === 'localstorage') {
     if (!authInfo.password || authInfo.password !== process.env.PASSWORD) {
       return handleAuthFailure(request, pathname);
